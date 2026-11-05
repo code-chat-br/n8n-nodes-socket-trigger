@@ -1,0 +1,8 @@
+{
+	"node": "n8n-nodes-socket-trigger.socketTrigger",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Development"],
+	"resources": {},
+	"alias": ["WebSocket", "WS", "WSS", "CodeChat", "Realtime"]
+}

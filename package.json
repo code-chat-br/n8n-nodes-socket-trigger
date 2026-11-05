@@ -1,0 +1,77 @@
+{
+	"name": "n8n-nodes-socket-trigger",
+	"version": "0.1.0",
+	"description": "A configurable WebSocket trigger for n8n with handshake authentication and automatic reconnection.",
+	"license": "MIT",
+	"author": {
+		"name": "jrcleber",
+		"email": "cleber.jr@live.com"
+	},
+	"homepage": "https://www.npmjs.com/package/n8n-nodes-socket-trigger",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/code-chat-br/n8n-nodes-socket-trigger.git"
+	},
+	"bugs": {
+		"url": "https://github.com/code-chat-br/n8n-nodes-socket-trigger/issues"
+	},
+	"keywords": [
+		"n8n-community-node-package",
+		"n8n",
+		"websocket",
+		"trigger",
+		"basic-auth",
+		"bearer"
+	],
+	"engines": {
+		"node": ">=22.16.0"
+	},
+	"files": [
+		"CHANGELOG.md",
+		"dist/credentials",
+		"dist/nodes",
+		"examples",
+		"docs"
+	],
+	"scripts": {
+		"build": "n8n-node build && node scripts/bundle.mjs",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
+		"format": "prettier --write credentials nodes scripts tests *.json *.mjs *.md docs examples .github",
+		"format:check": "prettier --check credentials nodes scripts tests *.json *.mjs *.md docs examples .github",
+		"test": "node --test tests/*.test.cjs",
+		"verify:package": "node scripts/verify-package.mjs",
+		"icons:preview": "node scripts/preview-icons.mjs",
+		"check": "npm run lint && npm run build && npm test && npm run verify:package",
+		"prepack": "npm run build",
+		"prepublishOnly": "npm run check"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"credentials": [
+			"dist/credentials/SocketTriggerWebSocketApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/SocketTrigger/SocketTrigger.node.js"
+		]
+	},
+	"devDependencies": {
+		"@n8n/node-cli": "0.55.5",
+		"@resvg/resvg-js": "2.6.2",
+		"@types/node": "^22.0.0",
+		"@types/ws": "^8.18.1",
+		"esbuild": "0.28.2",
+		"eslint": "^9.39.4",
+		"n8n-workflow": "2.16.0",
+		"prettier": "^3.8.3",
+		"typescript": "~5.9.3",
+		"ws": "^8.22.1"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}

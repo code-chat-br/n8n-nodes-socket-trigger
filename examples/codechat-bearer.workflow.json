@@ -1,0 +1,39 @@
+{
+	"name": "CodeChat WebSocket events",
+	"nodes": [
+		{
+			"parameters": {
+				"url": "wss://YOUR_API_HOST/v1/connections/YOUR_INSTANCE/events/ws",
+				"authentication": "credential",
+				"messageFormat": "json",
+				"headers": {},
+				"queryParameters": {},
+				"options": {}
+			},
+			"id": "b9a9e541-8a86-4c7a-9922-31d185a2dc76",
+			"name": "Socket Trigger",
+			"type": "n8n-nodes-socket-trigger.socketTrigger",
+			"typeVersion": 1,
+			"position": [260, 300],
+			"notes": "Replace the URL and select your own Socket Trigger WebSocket API credential with Bearer Token. No secrets are included in this example.",
+			"notesInFlow": true
+		},
+		{
+			"parameters": {},
+			"id": "a0c103d5-1f54-4359-a6cc-87df5fb0bb65",
+			"name": "Received event",
+			"type": "n8n-nodes-base.noOp",
+			"typeVersion": 1,
+			"position": [540, 300]
+		}
+	],
+	"connections": {
+		"Socket Trigger": {
+			"main": [[{ "node": "Received event", "type": "main", "index": 0 }]]
+		}
+	},
+	"settings": { "executionOrder": "v1" },
+	"active": false,
+	"pinData": {},
+	"tags": []
+}

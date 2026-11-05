@@ -1,0 +1,30 @@
+{
+	"name": "Generic WebSocket subscription",
+	"nodes": [
+		{
+			"parameters": {
+				"url": "wss://YOUR_WEBSOCKET_HOST/events",
+				"authentication": "none",
+				"messageFormat": "auto",
+				"headers": {},
+				"queryParameters": { "parameters": [{ "name": "channel", "value": "orders" }] },
+				"options": {
+					"initialMessages": "[{\"action\":\"subscribe\",\"channel\":\"orders\"}]",
+					"reconnect": true
+				}
+			},
+			"id": "e4e7cc43-b92e-49ee-8d18-8fcb2612dddb",
+			"name": "Socket Trigger",
+			"type": "n8n-nodes-socket-trigger.socketTrigger",
+			"typeVersion": 1,
+			"position": [260, 300],
+			"notes": "Replace the endpoint, query and subscription according to your server. Select Socket Trigger WebSocket API authentication when needed.",
+			"notesInFlow": true
+		}
+	],
+	"connections": {},
+	"settings": { "executionOrder": "v1" },
+	"active": false,
+	"pinData": {},
+	"tags": []
+}

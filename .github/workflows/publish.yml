@@ -1,0 +1,57 @@
+name: Publish npm package
+
+on:
+  workflow_dispatch:
+    inputs:
+      authentication:
+        description: 'Use OIDC, or a restricted NPM_TOKEN for the first publication'
+        required: true
+        default: oidc
+        type: choice
+        options:
+          - oidc
+          - token
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - run: npm install --global npm@12.2.2
+      - run: npm ci --ignore-scripts
+      - name: Set real source repository metadata
+        env:
+          SOURCE_REPOSITORY: ${{ github.repository }}
+        run: |
+          npm pkg set "repository.type=git" "repository.url=git+https://github.com/${SOURCE_REPOSITORY}.git"
+          npm pkg set "bugs.url=https://github.com/${SOURCE_REPOSITORY}/issues"
+      - run: npm run check
+      - run: npm run format:check
+      - run: npm pack --dry-run
+      - name: Publish with trusted publishing
+        if: inputs.authentication == 'oidc'
+        run: npm publish --provenance --access public
+      - name: Bootstrap publication with restricted token
+        if: inputs.authentication == 'token'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          test -n "$NODE_AUTH_TOKEN" || { echo 'Configure the NPM_TOKEN Actions secret first.'; exit 1; }
+          npm publish --provenance --access public
