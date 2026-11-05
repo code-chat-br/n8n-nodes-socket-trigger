@@ -18,7 +18,7 @@ npm install /absolute/path/to/n8n-nodes-socket-trigger-0.1.0.tgz
 
 Restart n8n. Docker installations must install the package inside the container or in the persistent community-nodes volume. Queue-mode deployments need the package available on every relevant n8n process.
 
-Development requires **Node.js 22.16+** and npm. The compiled node is tested against `n8n-workflow` 2.16.0; a full n8n UI/deployment acceptance test must be performed in your target installation. This package does not claim compatibility with every version accepted by the standard `n8n-workflow: "*"` peer declaration.
+Development requires **Node.js 24+** and npm because the n8n development toolchain includes dependencies that require Node 24. The package's runtime minimum is **Node.js 22.16+**. CI installs and builds using Node 24, then tests the compiled node separately on Node 22 and 24. The compiled node is tested against `n8n-workflow` 2.16.0; a full n8n UI/deployment acceptance test must be performed in your target installation. This package does not claim compatibility with every version accepted by the standard `n8n-workflow: "*"` peer declaration.
 
 ## Quick start
 

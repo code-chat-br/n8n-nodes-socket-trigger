@@ -18,6 +18,8 @@ The node does not maintain durable state or a cursor. Credential reads occur for
 
 ## Test coverage
 
+Install development dependencies and build with Node 24 (see `.nvmrc`). The toolchain pulls in `isolated-vm` 7, which rejects Node 22 during an engine-strict install. CI switches to Node 22 or 24 only after the build to validate the compiled trigger runtime without executing the development toolchain on Node 22.
+
 Tests use Node's test runner with loopback HTTP upgrade/WebSocket servers. They cover all five primary authentication transports, URL encoding/userinfo, conflicting headers, diagnostic redaction, JSON/text/binary mapping, subscription replay, permanent and transient errors, heartbeat timeout, retry exhaustion, timer cleanup, the actual n8n trigger adapter and credential connection tests. No production credentials or services are used.
 
 The development toolchain can contain transitive audit findings from n8n's CLI/workflow packages. Runtime packaging excludes development dependencies. Because `ws` is bundled, inspect its entry in the **full** npm audit as well as running `npm audit --omit=dev`; a production-only audit cannot inspect code already embedded in a bundle. Keep the lockfile and bundled dependency current.
